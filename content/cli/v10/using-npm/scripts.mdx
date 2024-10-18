@@ -243,11 +243,22 @@ If you depend on modules that define executable scripts, like test suites, then 
 
 then you could run `npm start` to execute the `bar` script, which is exported into the `node_modules/.bin` directory on `npm install`.
 
-#### package.json vars
+#### Environment variables
 
-The package.json fields are tacked onto the `npm_package_` prefix. So, for instance, if you had `{"name":"foo", "version":"1.2.5"}` in your package.json file, then your package scripts would have the `npm_package_name` environment variable set to "foo", and the `npm_package_version` set to "1.2.5". You can access these variables in your code with `process.env.npm_package_name` and `process.env.npm_package_version`, and so on for other fields.
+Top level fields of the `package.json` file are converted into environment variables prefixed with `npm_package_`. For example, if your package.json contains this:
+```bash
+{
+    "name": "foo",
+    "version": "1.2.5"
+}
+```
+then these fields can be accessed in your code like so:
+```js
+console.log(process.env.npm_package_name) // prints "foo"
+console.log(process.env.npm_package_version) // prints "1.2.5"
+```
 
-See [`package.json`](/cli/v10/configuring-npm/package-json) for more on package configs.
+See [`package.json`](/cli/v10/configuring-npm/package-json) for the full list of top level fields.
 
 #### current lifecycle event
 
